@@ -22,7 +22,7 @@ export class VueAuth extends Vue {
   error?: Error
 
   async getUser () {
-    return new User(this.auth0Client?.getUser())
+    return new User(await this.auth0Client?.getUser())
   }
 
   /** Authenticates the user using a popup window */
