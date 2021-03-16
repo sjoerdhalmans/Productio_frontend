@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash'
+import { camelCase, List } from 'lodash'
 
 export class User {
   sub: string
@@ -8,6 +8,7 @@ export class User {
   updatedAt: string
   email: string
   emailVerified: boolean
+  assignedRoles: string
 
   provider?: string
   id?: string

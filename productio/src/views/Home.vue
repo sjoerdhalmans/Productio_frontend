@@ -2,9 +2,13 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div v-if="!$auth.loading">
+      <h1 v-if="$auth.isAuthenticated">Welcome {{ $auth.user.name }}</h1>
+      <h1 v-if="$auth.isAuthenticated">You are part of {{ $auth.user[`http://demozero.net/roles`][0] }}</h1>
+    </div>
 
     <!-- Check that the SDK client is not currently loading before accessing is methods -->
-    <div>
+    <div v-if="!$auth.loading">
       <!-- show login when not authenticated -->
       <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
       <!-- show logout when authenticated -->
@@ -14,24 +18,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 @Component({
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 export default class Home extends Vue {
-  login () {
-    this.$auth.loginWithRedirect({})
+  login() {
+    this.$auth.loginWithRedirect({});
   }
 
   // Log the user out
-  logout () {
+  logout() {
     this.$auth.logout({
-      returnTo: window.location.origin
-    })
+      returnTo: window.location.origin,
+    });
   }
 }
 </script>
