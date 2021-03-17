@@ -4,6 +4,8 @@ import router from './router'
 import { Auth0Plugin } from './auth'
 import { domain, clientId } from '../auth_config.json'
 
+//test
+
 Vue.use(Auth0Plugin, {
   domain,
   clientId,
