@@ -9,6 +9,7 @@ import Sales from "../views/Sales.vue";
 import Production from "../views/Production.vue";
 import DepartmentOverview from "../views/DepartmentOverview.vue";
 import Main from "../views/Main.vue";
+import { authGuard } from "@/auth/authGuard";
 
 Vue.use(VueRouter);
 
@@ -30,12 +31,14 @@ const routes: Array<RouteConfig> = [
   {
     path: "/profile",
     name: "profile",
-    component: Profile
+    component: Profile,
+    beforeEnter: authGuard
   },
   {
     path: "/DepartmentOverview",
     name: "departmentoverview",
-    component: DepartmentOverview
+    component: DepartmentOverview,
+    beforeEnter: authGuard
   },
   {
     path: "/main",
@@ -45,27 +48,32 @@ const routes: Array<RouteConfig> = [
   {
     path: "/requisitions",
     name: "requisitions",
-    component: Requisitions
+    component: Requisitions,
+    beforeEnter: authGuard
   },
   {
     path: "/logistics",
     name: "logistics",
-    component: Logistics
+    component: Logistics,
+    beforeEnter: authGuard
   },
   {
     path: "/hr",
     name: "hr",
-    component: HumanResources
+    component: HumanResources,
+    beforeEnter: authGuard
   },
   {
     path: "/sales",
     name: "sales",
-    component: Sales
+    component: Sales,
+    beforeEnter: authGuard
   },
   {
     path: "/production",
     name: "production",
-    component: Production
+    component: Production,
+    beforeEnter: authGuard
   },
 ];
 
