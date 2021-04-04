@@ -85,7 +85,7 @@ export class VueAuth extends Vue {
     this.auth0Client = await createAuth0Client({
       domain: auth0Options.domain,
       client_id: auth0Options.clientId, // eslint-disable-line @typescript-eslint/camelcase
-      audience: auth0Options.audience,
+      audience: 'https://productiogateway',
       redirect_uri: redirectUri // eslint-disable-line @typescript-eslint/camelcase
     });
 

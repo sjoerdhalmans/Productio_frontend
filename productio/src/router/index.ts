@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import Profile from "../views/Profile.vue";
+import DepartmentOverview from "../views/DepartmentOverview.vue";
 import Main from "../views/Main.vue";
 
 Vue.use(VueRouter);
@@ -25,6 +26,11 @@ const routes: Array<RouteConfig> = [
     path: "/profile",
     name: "profile",
     component: Profile
+  },
+  {
+    path: "/DepartmentOverview",
+    name: "departmentoverview",
+    component: DepartmentOverview
   },
   {
     path: "/main",

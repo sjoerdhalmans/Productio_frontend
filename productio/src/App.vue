@@ -16,7 +16,16 @@
 
       <div class="ml-5" v-if="!$auth.loading">
         <!-- show login when not authenticated -->
-        <v-btn v-if="$auth.isAuthenticated" @click="$router.push('profile')">Dashboard</v-btn>
+        <v-btn v-if="$auth.isAuthenticated" @click="$router.push('profile')"
+          >Dashboard</v-btn
+        >
+      </div>
+
+      <div class="ml-5" v-if="!$auth.loading">
+        <!-- show login when not authenticated -->
+        <v-btn v-if="$auth.isAuthenticated" @click="$router.push('departmentoverview')"
+          >Departments</v-btn
+        >
       </div>
 
       <v-spacer></v-spacer>
@@ -41,6 +50,10 @@
 .blacktext {
   color: black;
   font-family: "PT Serif", serif;
+}
+
+.v-main {
+  background-color: lightcyan;
 }
 </style>
 
