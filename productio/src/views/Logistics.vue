@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <v-navigation-drawer expand-on-hover app clipped>
       <v-list nav dense>
         <v-list-item link>
@@ -11,13 +11,16 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-content> test </v-content>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
   </div>
 </template>
 
 <style scoped>
-.content {
+.v-content {
   height: 100%;
+  padding: 2% !important;
 }
 
 .sidebar {
@@ -27,6 +30,6 @@
 
 <script>
 export default {
-    name: 'logistics'
-}
+  name: "logistics",
+};
 </script>

@@ -8,6 +8,7 @@ import HumanResources from "../views/HumanResources.vue";
 import Sales from "../views/Sales.vue";
 import Production from "../views/Production.vue";
 import DepartmentOverview from "../views/DepartmentOverview.vue";
+import HrManageUsers from "../components/HrManageUsers.vue";
 import Main from "../views/Main.vue";
 import { authGuard } from "@/auth/authGuard";
 
@@ -61,7 +62,15 @@ const routes: Array<RouteConfig> = [
     path: "/hr",
     name: "hr",
     component: HumanResources,
-    beforeEnter: authGuard
+    beforeEnter: authGuard,
+    children: [
+      {
+        path: "users",
+        component: HrManageUsers,
+        name: "hrusers",
+        beforeEnter: authGuard,
+      }
+    ]
   },
   {
     path: "/sales",
