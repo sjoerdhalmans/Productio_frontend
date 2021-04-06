@@ -39,27 +39,87 @@
             <div class="infocardcontent">
               <h1>Your information</h1>
               <v-row class="inforow">
-                <v-btn depressed>
-                  <v-col cols="1"><p>Email</p></v-col>
-                  <v-col style="text-align: center"><p>|</p></v-col>
-                  <v-col cols="4"
-                    ><p>{{ $auth.user.email }}</p></v-col
-                  >
-                  <v-col style="text-align: center"><p>|</p></v-col>
-                  <v-col><i class="fas fa-chevron-right"></i></v-col>
-                </v-btn>
+                <v-dialog v-model="dialogemail" width="500">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" depressed>
+                      <v-col cols="1"><p>Email</p></v-col>
+                      <v-col style="text-align: center"><p>|</p></v-col>
+                      <v-col cols="4"
+                        ><p>{{ $auth.user.email }}</p></v-col
+                      >
+                      <v-col style="text-align: center"><p>|</p></v-col>
+                      <v-col><i class="fas fa-chevron-right"></i></v-col
+                    ></v-btn>
+                  </template>
+
+                  <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                      Change email
+                    </v-card-title>
+
+                    <v-text-field
+                      class="pa-5"
+                      label="Main input"
+                      hide-details="auto"
+                      v-model="emailinput"
+                    ></v-text-field>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions>
+                      <v-row>
+                        <v-btn color="primary" text @click="dialogemail = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn color="primary" text @click="updateUser()">
+                          Change email
+                        </v-btn>
+                      </v-row>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </v-row>
 
               <v-row class="inforow">
-                <v-btn depressed>
-                  <v-col cols="1"><p>Name</p></v-col>
-                  <v-col style="text-align: center"><p>|</p></v-col>
-                  <v-col cols="4"
-                    ><p>{{ $auth.user.nickname }}</p></v-col
-                  >
-                  <v-col style="text-align: center"><p>|</p></v-col>
-                  <v-col><i class="fas fa-chevron-right"></i></v-col
-                ></v-btn>
+                <v-dialog v-model="dialogname" width="500">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" depressed>
+                      <v-col cols="1"><p>Name</p></v-col>
+                      <v-col style="text-align: center"><p>|</p></v-col>
+                      <v-col cols="4"
+                        ><p>{{ $auth.user.nickname }}</p></v-col
+                      >
+                      <v-col style="text-align: center"><p>|</p></v-col>
+                      <v-col><i class="fas fa-chevron-right"></i></v-col
+                    ></v-btn>
+                  </template>
+
+                  <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                      Change Name
+                    </v-card-title>
+
+                    <v-text-field
+                      class="pa-5"
+                      label="Main input"
+                      hide-details="auto"
+                      v-model="nameinput"
+                    ></v-text-field>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions>
+                      <v-row>
+                        <v-btn color="primary" text @click="dialogname = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn color="primary" text @click="updateUser()">
+                          Change name
+                        </v-btn>
+                      </v-row>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </v-row>
 
               <v-row class="inforow">
@@ -183,8 +243,12 @@ export default {
 
   data() {
     return {
+      nameinput: this.$auth.user.nickname,
+      emailinput: this.$auth.user.email,
       randomQuote: {},
       dialog: false,
+      dialogname: false,
+      dialogemail: false,
       quotes: [
         {
           text: "A clever person solves a problem, A wise person AVOIDS it.",
@@ -238,6 +302,25 @@ export default {
       };
       console.log(token);
       axios.post("http://localhost:3000/updatepassword", calldata, {
+        headers: {
+          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+        },
+      });
+    },
+
+    async updateUser() {
+      this.dialogname = false;
+      this.dialogemail = false;
+      const token = await this.$auth.getTokenSilently();
+
+      const calldata = {
+        id: this.$auth.user.id,
+        email: this.emailinput,
+        nickname: this.nameinput,
+        provider: this.$auth.user.provider,
+      };
+      console.log(calldata);
+      axios.patch("http://localhost:3000/updateuser", calldata, {
         headers: {
           Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
         },
