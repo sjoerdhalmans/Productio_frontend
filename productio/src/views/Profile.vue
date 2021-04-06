@@ -79,13 +79,13 @@
 }
 
 .content {
+  height: 50%;
   width: 50%;
   font-family: "PT Serif", serif;
 }
 
 .cardcontent {
   text-align: center;
-  padding: 5%;
 }
 
 .card {
