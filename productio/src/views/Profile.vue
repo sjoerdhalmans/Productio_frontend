@@ -287,8 +287,6 @@ export default {
     ];
 
     this.roles = this.$auth.user["http://Productio.net/roles"];
-
-    console.log(this.roles);
   },
 
   methods: {
