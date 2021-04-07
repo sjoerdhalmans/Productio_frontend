@@ -26,7 +26,7 @@
               width="40"
             />
             <h1 style="color: black; text-align: center; padding-top: 27%">
-              {{ role }}
+              {{ role.split('_', 1)[0] }}
             </h1>
           </v-carousel-item>
         </v-carousel>

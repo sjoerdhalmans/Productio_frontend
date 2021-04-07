@@ -2,7 +2,7 @@
   <div>
     <v-row class="ml-5 mr-5 departmentrow justify-center">
       <v-col
-        v-bind:key="department"
+        v-bind:key="department.name"
         v-for="department in departments"
         sm="12"
         lg="2"
@@ -72,11 +72,11 @@ export default {
     userRoles: [],
 
     departments: [
-      { name: "HR", page: "hr", permittedRoles: ["HR", "Management"] },
-      { name: "Logistics", page: "logistics", permittedRoles: ["Logistics", "Management"] },
-      { name: "Production", page: "production", permittedRoles: ["Production", "Management"] },
-      { name: "Requisitions", page: "requisitions", permittedRoles: ["Requisitions", "Management"] },
-      { name: "Sales", page: "sales", permittedRoles: ["Sales", "Management"] },
+      { name: "HR", page: "hr", permittedRoles: ["HR_Productio", "Management_Productio"] },
+      { name: "Logistics", page: "logistics", permittedRoles: ["Logistics_Productio", "Management_Productio"] },
+      { name: "Production", page: "production", permittedRoles: ["Production_Productio", "Management_Productio"] },
+      { name: "Requisitions", page: "requisitions", permittedRoles: ["Requisitions_Productio", "Management_Productio"] },
+      { name: "Sales", page: "sales", permittedRoles: ["Sales_Productio", "Management_Productio"] },
     ],
   }),
 

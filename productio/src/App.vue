@@ -29,7 +29,7 @@
         <v-btn
           depressed
           v-if="$auth.isAuthenticated"
-          @click="$router.push('departmentoverview')"
+          @click="$router.push('/departmentoverview')"
           >Departments</v-btn
         >
       </div>
@@ -117,7 +117,7 @@ export default Vue.extend({
       items: [
         {
           title: "Profile",
-          action: () => router.push({ name: "profile" }),
+          action: () => router.push("/profile"),
         },
         {
           title: "Logout",

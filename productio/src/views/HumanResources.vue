@@ -30,6 +30,6 @@
 
 <script>
 export default {
-  name: "hr",
+  name: "humanresources",
 };
 </script>
