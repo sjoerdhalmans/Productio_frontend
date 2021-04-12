@@ -9,6 +9,9 @@ import Sales from "../views/Sales.vue";
 import Production from "../views/Production.vue";
 import DepartmentOverview from "../views/DepartmentOverview.vue";
 import HrManageUsers from "../components/HrManageUsers.vue";
+import LogisticsManageOrders from "../components/LogisticsManageOrders.vue";
+import LogisticsOrderMaterials from "../components/LogisticsOrderMaterials.vue";
+import LogisticsOverview from "../components/LogisticsOverview.vue";
 import Main from "../views/Main.vue";
 import { authGuard } from "@/auth/authGuard";
 
@@ -56,7 +59,25 @@ const routes: Array<RouteConfig> = [
     path: "/logistics",
     name: "logistics",
     component: Logistics,
-    beforeEnter: authGuard
+    beforeEnter: authGuard,
+    children: [
+      {
+        path: "overview",
+        component: LogisticsOverview,
+        name: "logisticsoverview",
+        beforeEnter: authGuard
+      }, {
+        path: "orders",
+        component: LogisticsManageOrders,
+        name: "logisticsmanageorders",
+        beforeEnter: authGuard
+      }, {
+        path: "materials",
+        component: LogisticsOrderMaterials,
+        name: "logisticsordermaterials",
+        beforeEnter: authGuard
+      },
+    ]
   },
   {
     path: "/hr",

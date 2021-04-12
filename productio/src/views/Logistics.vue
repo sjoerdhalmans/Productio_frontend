@@ -2,11 +2,21 @@
   <div style="height: 100%">
     <v-navigation-drawer expand-on-hover app clipped>
       <v-list nav dense>
-        <v-list-item link>
+        <v-list-item @click="$router.push('/logistics/overview')" link>
           <v-list-item-icon>
-            <v-icon>mdi-account-multiple</v-icon>
+            <i class="fas fa-eye"></i>
           </v-list-item-icon>
-          <v-list-item-title>Manage Users</v-list-item-title>
+          <v-list-item-title>Logistics Overview</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/logistics/orders')" link>
+          <v-list-item-icon>
+            <i class="far fa-paper-plane"></i>
+          </v-list-item-icon>
+          <v-list-item-title>Manage Orders</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/logistics/materials')" link>
+          <v-list-item-icon> <i class="fas fa-truck"></i> </v-list-item-icon>
+          <v-list-item-title>Order Materials</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -25,6 +35,10 @@
 
 .sidebar {
   height: 100%;
+}
+
+i {
+  line-height: 1.5 !important;
 }
 </style>
 
