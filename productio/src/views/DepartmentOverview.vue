@@ -14,7 +14,12 @@
             <div>
               <i class="fas fa-lock-open mt-5" style="font-size: 3em"></i>
             </div>
-            <v-btn class="departmentbutton"  color="primary" @click="$router.push(department.page)">Enter</v-btn>
+            <v-btn
+              class="departmentbutton"
+              color="primary"
+              @click="$router.push(department.page)"
+              >Enter</v-btn
+            >
           </div>
         </div>
         <div v-if="!checkAuth(department.permittedRoles)" class="departmentdiv">
@@ -72,16 +77,41 @@ export default {
     userRoles: [],
 
     departments: [
-      { name: "HR", page: "hr", permittedRoles: ["HR_Productio", "Management_Productio"] },
-      { name: "Logistics", page: "logistics", permittedRoles: ["Logistics_Productio", "Management_Productio"] },
-      { name: "Production", page: "production", permittedRoles: ["Production_Productio", "Management_Productio"] },
-      { name: "Requisitions", page: "requisitions", permittedRoles: ["Requisitions_Productio", "Management_Productio"] },
-      { name: "Sales", page: "sales", permittedRoles: ["Sales_Productio", "Management_Productio"] },
+      {
+        name: "HR",
+        page: "hr",
+        permittedRoles: ["HR_Productio", "Management_Productio"],
+      },
+      {
+        name: "Logistics",
+        page: "logistics",
+        permittedRoles: ["Logistics_Productio", "Management_Productio"],
+      },
+      {
+        name: "Production",
+        page: "production",
+        permittedRoles: ["Production_Productio", "Management_Productio"],
+      },
+      {
+        name: "Requisitions",
+        page: "requisitions",
+        permittedRoles: ["Requisitions_Productio", "Management_Productio"],
+      },
+      {
+        name: "Sales",
+        page: "sales",
+        permittedRoles: ["Sales_Productio", "Management_Productio"],
+      },
     ],
   }),
 
-  beforeMount() {
-    this.userRoles = this.$auth.user["http://Productio.net/roles"];
+  async mounted() {
+    this.$auth.getTokenSilently();  
+    console.log(await this.$auth.getIdTokenClaims());
+    console.log("first");
+    this.userRoles = await this.$auth.user["http://Productio.net/roles"];
+    console.log("second");
+    console.log(this.userRoles);
   },
 
   methods: {
