@@ -106,12 +106,8 @@ export default {
   }),
 
   async mounted() {
-    this.$auth.getTokenSilently();  
-    console.log(await this.$auth.getIdTokenClaims());
-    console.log("first");
+    console.log(await this.$auth.getTokenSilently()); 
     this.userRoles = await this.$auth.user["http://Productio.net/roles"];
-    console.log("second");
-    console.log(this.userRoles);
   },
 
   methods: {
