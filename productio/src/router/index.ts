@@ -12,6 +12,9 @@ import HrManageUsers from "../components/HrManageUsers.vue";
 import LogisticsManageOrders from "../components/LogisticsManageOrders.vue";
 import LogisticsOrderMaterials from "../components/LogisticsOrderMaterials.vue";
 import LogisticsOverview from "../components/LogisticsOverview.vue";
+import RequisitionsInventory from "../components/RequisitionsInventory.vue";
+import RequisitionsCreateOrder from "../components/RequisitionsCreateOrder.vue";
+import RequisitionsOverview from "../components/RequisitionsOverview.vue";
 import Main from "../views/Main.vue";
 import { authGuard } from "@/auth/authGuard";
 
@@ -53,7 +56,27 @@ const routes: Array<RouteConfig> = [
     path: "/requisitions",
     name: "requisitions",
     component: Requisitions,
-    beforeEnter: authGuard
+    beforeEnter: authGuard,
+    children: [
+      {
+        path: "inventory",
+        component: RequisitionsInventory,
+        name: "requisitionsinventory",
+        beforeEnter: authGuard
+      },
+      {
+        path: "overview",
+        component: RequisitionsOverview,
+        name: "requisitionsoverview",
+        beforeEnter: authGuard
+      },
+      {
+        path: "createorder",
+        component: RequisitionsCreateOrder,
+        name: "requisitionscreateorder",
+        beforeEnter: authGuard
+      },
+    ]
   },
   {
     path: "/logistics",
