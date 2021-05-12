@@ -118,8 +118,26 @@ export default {
         },
       });
 
+      const order = {
+        type: "Material",
+        itemId: this.selectedMaterial.id,
+        quantity: this.selectedQuantity,
+      };
+
+      this.addMaterialToInventory(order);
+
       this.selectedMaterial = {};
       (this.price = 0), (this.selectedQuantity = 0);
+    },
+
+    async addMaterialToInventory(order) {
+      const token = await this.$auth.getTokenSilently();
+
+      await axios.post("http://localhost:3000/addinvitem", order, {
+        headers: {
+          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+        },
+      });
     },
   },
 };

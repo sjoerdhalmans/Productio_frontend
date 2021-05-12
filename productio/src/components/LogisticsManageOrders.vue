@@ -3,19 +3,32 @@
     <v-card>
       <div class="content">
         <v-row>
-          <v-col cols="5"><h1>Creation date</h1></v-col>
-          <v-col cols="3"><h1>Material name</h1></v-col>
-          <v-col cols="3"><h1>Material quantity in kg</h1></v-col>
+          <v-col cols="11">
+            <v-row>
+              <v-col cols="5"><h1>Creation date</h1></v-col>
+              <v-col cols="3"><h1>Material name</h1></v-col>
+              <v-col cols="3"><h1>Material quantity in kg</h1></v-col>
+            </v-row></v-col
+          >
         </v-row>
+
         <v-divider></v-divider>
         <div v-bind:key="order.id" v-for="order in orders">
-          <v-btn depressed>
-            <v-row class="entry">
-              <v-col cols="5">{{ order.created }}</v-col>
-              <v-col cols="3">{{ order.materialName }}</v-col>
-              <v-col cols="3">{{ order.quantity }}</v-col>
-            </v-row>
-          </v-btn>
+          <v-row>
+            <v-col cols="11">
+              <v-btn depressed>
+                <v-row class="entry">
+                  <v-col cols="5">{{ order.created }}</v-col>
+                  <v-col cols="3">{{ order.materialName }}</v-col>
+                  <v-col cols="3">{{ order.quantity }}</v-col>
+                </v-row>
+              </v-btn>
+            </v-col>
+            <v-col cols="1">
+              <v-btn @click="removeOrder(order)">Finish</v-btn>
+            </v-col>
+          </v-row>
+
           <v-divider></v-divider>
         </div>
       </div>
@@ -56,6 +69,7 @@ export default {
   data() {
     return {
       orders: [],
+      dialog: false,
     };
   },
 
@@ -64,6 +78,20 @@ export default {
   },
 
   methods: {
+    async removeOrder(order) {
+      console.log(order);
+      const token = await this.$auth.getTokenSilently();
+
+      await axios.delete("http://localhost:3000/deleteorder/" + order.id, {
+        headers: {
+          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+        },
+      });
+
+      this.dialog = false;
+      this.getOrders();
+    },
+
     async getOrders() {
       const token = await this.$auth.getTokenSilently();
 
