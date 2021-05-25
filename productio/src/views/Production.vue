@@ -2,16 +2,28 @@
   <div style="height: 100%">
     <v-navigation-drawer expand-on-hover app clipped>
       <v-list nav dense>
-        <v-list-item link>
+        <v-list-item @click="$router.push('/production/overview')" link>
           <v-list-item-icon>
-            <v-icon>mdi-account-multiple</v-icon>
+            <i class="fas fa-clipboard-list"></i>
           </v-list-item-icon>
-          <v-list-item-title>Manage Users</v-list-item-title>
+          <v-list-item-title>Production Overview</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/production/management')" link>
+          <v-list-item-icon>
+            <i class="fas fa-industry"></i>
+          </v-list-item-icon>
+          <v-list-item-title>Manage Production</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/production/materials')" link>
+          <v-list-item-icon>
+            <i class="fas fa-truck"></i>
+          </v-list-item-icon>
+          <v-list-item-title>Request Materials</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-        <v-content>
+    <v-content>
       <router-view></router-view>
     </v-content>
   </div>
@@ -26,10 +38,14 @@
 .sidebar {
   height: 100%;
 }
+
+i {
+  line-height: 1.5 !important;
+}
 </style>
 
 <script>
 export default {
-    name: 'production'
-}
+  name: "production",
+};
 </script>

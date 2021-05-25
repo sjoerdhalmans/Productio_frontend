@@ -15,6 +15,10 @@ import LogisticsOverview from "../components/LogisticsOverview.vue";
 import RequisitionsInventory from "../components/RequisitionsInventory.vue";
 import RequisitionsCreateOrder from "../components/RequisitionsCreateOrder.vue";
 import RequisitionsOverview from "../components/RequisitionsOverview.vue";
+import ProductionManagement from "../components/ProductionManagement.vue";
+import ProductionOverview from "../components/ProductionOverview.vue";
+import ProductionMaterials from "../components/ProductionMaterials.vue";
+
 import Main from "../views/Main.vue";
 import { authGuard } from "@/auth/authGuard";
 
@@ -126,7 +130,27 @@ const routes: Array<RouteConfig> = [
     path: "/production",
     name: "production",
     component: Production,
-    beforeEnter: authGuard
+    beforeEnter: authGuard,
+    children: [
+      {
+        path: "management",
+        component: ProductionManagement,
+        name: "productionmanagement",
+        beforeEnter: authGuard
+      },
+      {
+        path: "overview",
+        component: ProductionOverview,
+        name: "productionoverview",
+        beforeEnter: authGuard
+      },
+      {
+        path: "materials",
+        component: ProductionMaterials,
+        name: "productionmaterials",
+        beforeEnter: authGuard
+      },
+    ]
   },
 ];
 
