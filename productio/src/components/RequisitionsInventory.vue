@@ -26,6 +26,7 @@
   color: black;
   font-family: "PT Serif", serif !important;
   padding: 1%;
+  height: 100%;
 }
 
 .entry {
@@ -35,6 +36,11 @@
 
 .content {
   padding: 1%;
+  height: 100%;
+}
+
+.v-card {
+  height: 100%;
 }
 
 .v-btn {

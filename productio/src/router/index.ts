@@ -136,6 +136,7 @@ const routes: Array<RouteConfig> = [
         path: "management",
         component: ProductionManagement,
         name: "productionmanagement",
+        props: true,
         beforeEnter: authGuard
       },
       {

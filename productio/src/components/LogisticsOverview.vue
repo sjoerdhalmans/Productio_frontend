@@ -9,14 +9,16 @@
           <v-col cols="1"><h1>Price</h1></v-col>
         </v-row>
         <v-divider></v-divider>
-        <div v-bind:key="receipt.id" v-for="receipt in orderReceipts">
-          <v-row class="entry">
-            <v-col cols="5">{{ receipt.finished }}</v-col>
-            <v-col cols="3">{{ receipt.materialName }}</v-col>
-            <v-col cols="3">{{ receipt.quantity }}</v-col>
-            <v-col cols="1">{{ receipt.price }} {{ receipt.currency }}</v-col>
-          </v-row>
-          <v-divider></v-divider>
+        <div class="items">
+          <div v-bind:key="receipt.id" v-for="receipt in orderReceipts">
+            <v-row class="entry">
+              <v-col cols="5">{{ receipt.finished }}</v-col>
+              <v-col cols="3">{{ receipt.materialName }}</v-col>
+              <v-col cols="3">{{ receipt.quantity }}</v-col>
+              <v-col cols="1">{{ receipt.price }} {{ receipt.currency }}</v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
         </div>
       </div>
     </v-card>
@@ -28,6 +30,7 @@
   color: black;
   font-family: "PT Serif", serif !important;
   padding: 1%;
+  max-height: 100%;
 }
 
 .entry {
@@ -37,6 +40,16 @@
 
 .content {
   padding: 1%;
+  max-height: 75%;
+}
+
+.v-card {
+  max-height: 100%;
+}
+
+.items {
+  height: 73vh;
+  overflow-y: scroll;
 }
 
 .v-btn {
