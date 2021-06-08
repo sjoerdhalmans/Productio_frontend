@@ -62,10 +62,12 @@ export default {
       materials: [],
       emptyItems: [],
       filledItems: [],
+      producedItems: [],
     };
   },
 
   async mounted() {
+    await this.getItems();
     await this.getMaterials();
     await this.getEmptyItems();
     await this.fillItems();
@@ -83,6 +85,20 @@ export default {
         })
         .then((res) => {
           this.materials = res.data;
+        });
+    },
+
+    async getItems() {
+      const token = await this.$auth.getTokenSilently();
+
+      await axios
+        .get("http://localhost:3000/getitems", {
+          headers: {
+            Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+          },
+        })
+        .then((res) => {
+          this.producedItems = res.data;
         });
     },
 
@@ -106,6 +122,10 @@ export default {
           const filledItem = await this.fillMaterials(emptyItem);
 
           this.filledItems.push(filledItem);
+        } else if (emptyItem.type == "Produced Item") {
+          const filledItem = await this.fillProducedItems(emptyItem);
+
+          this.filledItems.push(filledItem);
         }
       });
     },
@@ -117,7 +137,19 @@ export default {
         }
       });
 
-      emptyItem.quantity = emptyItem.quantity.toString() + ' KG';
+      emptyItem.quantity = emptyItem.quantity.toString() + " KG";
+
+      return emptyItem;
+    },
+
+    async fillProducedItems(emptyItem) {
+      await this.producedItems.forEach((item) => {
+        if (item.id == emptyItem.itemId) {
+          emptyItem.name = item.name;
+        }
+      });
+
+      emptyItem.quantity = emptyItem.quantity.toString() + " Units";
 
       return emptyItem;
     },

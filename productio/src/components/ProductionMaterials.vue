@@ -2,19 +2,44 @@
   <div class="blacktext">
     <v-card>
       <div class="content">
-        <v-row>
-          <v-col cols="4"><h1>Name</h1></v-col>
-          <v-col cols="4"><h1>Type</h1></v-col>
-          <v-col cols="4"><h1>Quantity</h1></v-col>
+        <h1>Request Materials</h1>
+        <v-divider></v-divider>
+        <v-row class="content">
+          <v-col cols="1"></v-col>
+          <v-col cols="4">
+            <v-select
+              v-model="selectedMaterial"
+              :items="materials"
+              label="Material"
+              outlined
+            >
+              <template v-slot:item="{ item }">
+                {{ item.name }}
+              </template>
+              <template v-slot:selection="{ item }">
+                {{ item.name }}
+              </template>
+            </v-select></v-col
+          >
+          <v-col cols="2"></v-col>
+          <v-col cols="4">
+            <v-text-field
+              v-model="selectedQuantity"
+              type="number"
+              label="Quantity in kilograms"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="1"></v-col>
         </v-row>
         <v-divider></v-divider>
-        <div v-bind:key="item.id" v-for="item in filledItems">
-          <v-row class="entry">
-            <v-col cols="4">{{ item.name }}</v-col>
-            <v-col cols="4">{{ item.type }}</v-col>
-            <v-col cols="4">{{ item.quantity }}</v-col>
-          </v-row>
-          <v-divider></v-divider>
+        <div class="content">
+          <v-btn
+            class="mt-10"
+            style="width: 20%"
+            color="primary"
+            @click="requestMaterials()"
+            >Place Order</v-btn
+          >
         </div>
       </div>
     </v-card>
@@ -26,7 +51,6 @@
   color: black;
   font-family: "PT Serif", serif !important;
   padding: 1%;
-  height: 100%;
 }
 
 .entry {
@@ -36,11 +60,6 @@
 
 .content {
   padding: 1%;
-  height: 100%;
-}
-
-.v-card {
-  height: 100%;
 }
 
 .v-btn {
@@ -60,15 +79,13 @@ export default {
   data() {
     return {
       materials: [],
-      emptyItems: [],
-      filledItems: [],
+      selectedMaterial: {},
+      selectedQuantity: 0,
     };
   },
 
   async mounted() {
     await this.getMaterials();
-    await this.getEmptyItems();
-    await this.fillItems();
   },
 
   methods: {
@@ -86,38 +103,27 @@ export default {
         });
     },
 
-    async getEmptyItems() {
+    async requestMaterials() {
       const token = await this.$auth.getTokenSilently();
 
-      await axios
-        .get("http://localhost:3000/getallstoreditems", {
-          headers: {
-            Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
-          },
-        })
-        .then((res) => {
-          this.emptyItems = res.data;
-        });
-    },
+      console.log(this.selectedMaterial)
 
-    async fillItems() {
-      this.emptyItems.forEach(async (emptyItem) => {
-          const filledItem = await this.fillMaterials(emptyItem);
+      const requisition = {
+        OrderedItemType: 'Material',
+        OrderedItemId: this.selectedMaterial.id,
+        Quantity: this.selectedQuantity,
+        Requester: this.$auth.user.sub,
+        Department: 'Production'
+      };
 
-          this.filledItems.push(filledItem);
-      });
-    },
-
-    async fillMaterials(emptyItem) {
-      await this.materials.forEach((material) => {
-        if (material.id == emptyItem.itemId) {
-          emptyItem.name = material.name;
-        }
+      await axios.post("http://localhost:3000/createrequisition", requisition, {
+        headers: {
+          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+        },
       });
 
-      emptyItem.quantity = emptyItem.quantity.toString() + ' KG';
-
-      return emptyItem;
+      this.selectedMaterial = {};
+      this.selectedQuantity = 0;
     },
   },
 };

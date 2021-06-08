@@ -34,7 +34,12 @@
                       params: { productionLineProp: productionLine },
                     })
                   "
-                  class="fas fa-edit edit"
+                  class="pr-10 fas fa-edit edit"
+                ></i>
+                |
+                <i
+                  class="pl-10 edit fas fa-trash-alt"
+                  @click="deleteProductionLine(productionLine)"
                 ></i>
               </v-col>
             </v-row>
@@ -123,6 +128,18 @@ export default {
   },
 
   methods: {
+    async deleteProductionLine(productionLine) {
+      const token = await this.$auth.getTokenSilently();
+
+      await axios.delete("http://localhost:3000/deleteproductionline/" + productionLine.id, {
+        headers: {
+          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
+        },
+      });
+
+      this.getProductionLines();
+    },
+
     async getMaterials() {
       const token = await this.$auth.getTokenSilently();
 

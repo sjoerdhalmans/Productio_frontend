@@ -8,7 +8,7 @@
           </v-list-item-icon>
           <v-list-item-title>Production Overview</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="$router.push('/production/management')" link>
+        <v-list-item @click="$router.push('/production/statistics')" link>
           <v-list-item-icon>
             <i class="fas fa-industry"></i>
           </v-list-item-icon>
